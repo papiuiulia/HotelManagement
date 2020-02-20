@@ -1,7 +1,8 @@
 create table [GuestType] 
 (
+[GuestTypeID] uniqueidentifier NOT NULL,
 [GuestType] nvarchar(50) NOT NULL,
-CONSTRAINT [PK_GuestType] PRIMARY KEY ([GuestType]));
+CONSTRAINT [PK_GuestType] PRIMARY KEY ([GuestTypeID]));
 
 
 
@@ -12,30 +13,31 @@ create table [Guest]
 [LastName] nvarchar(50) NOT NULL,
 [Email] nvarchar(50) NOT NULL,
 [Phone] nvarchar(50) NOT NULL,
-[Adresa] nvarchar(50) NOT NULL,
+[Address] nvarchar(50) NOT NULL,
 [City] nvarchar(50)NOT NULL,
 [Country] nvarchar(50) NOT NULL,
-[GuestType] nvarchar(50) NOT NULL,
+[GuestTypeID] uniqueidentifier NOT NULL,
 [AditionalInfo] nvarchar(50) NOT NULL,
 CONSTRAINT [PK_Guest] PRIMARY KEY ([GuestID]),
-CONSTRAINT [FK_Guest_GuestType] FOREIGN KEY ([GuestType])
-     REFERENCES [GuestType]([GuestType]));
+CONSTRAINT [FK_Guest_GuestType] FOREIGN KEY ([GuestTypeID])
+     REFERENCES [GuestType]([GuestTypeID]));
 
 
 
 create table [RoomType]
 (
 [RoomTypeID] uniqueidentifier NOT NULL,
-[TypeofRoom] nvarchar(50) NOT NULL,
+[Name] nvarchar(50) NOT NULL,
 [Price] nvarchar(50) NOT NULL,
 CONSTRAINT [PK_RoomType] PRIMARY KEY ([RoomTypeID]));
 
 
 
-create table [AcomodationType] 
+create table [AccommodationType] 
 (
-[TypeofAcomodation] nvarchar(50) NOT NULL,
-CONSTRAINT [PK_AcomodationType] PRIMARY KEY ([TypeofAcomodation])
+[TypeofAccommodationID] uniqueidentifier NOT NULL,
+[TypeofAccommodation] nvarchar(50) NOT NULL,
+CONSTRAINT [PK_AccommodationType] PRIMARY KEY ([TypeofAccommodationID])
 )
 
 
@@ -44,22 +46,23 @@ create table [Room]
 (
 [RoomNr] nvarchar(50) NOT NULL,
 [RoomTypeID] uniqueidentifier NOT NULL,
-[LocationID] uniqueidentifier NOT NULL,
+[RoomID] uniqueidentifier NOT NULL,
 [AditionalInfo] nvarchar(50) NOT NULL,
-[TypeofAcomodation] nvarchar(50) NOT NULL,
-CONSTRAINT [PK_Room] PRIMARY KEY ([LocationID]),
+[TypeofAccommodationID] uniqueidentifier NOT NULL,
+CONSTRAINT [PK_Room] PRIMARY KEY ([RoomID]),
 CONSTRAINT [FK_Room_RoomType] FOREIGN KEY ([RoomTypeID])
      REFERENCES [RoomType]([RoomTypeID]),
-CONSTRAINT [FK_Room_AcomodationType] FOREIGN KEY ([TypeofAcomodation])
-     REFERENCES [AcomodationType]([TypeofAcomodation]));
+CONSTRAINT [FK_Room_AccommodationType] FOREIGN KEY ([TypeofAccommodationID])
+     REFERENCES [AccommodationType]([TypeofAccommodationID]));
 
 
 
 
 create table [ReservationType]
 (
+[ReservationTypeID] uniqueidentifier NOT NULL,
 [ReservationType] nvarchar(50) NOT NULL,
-CONSTRAINT [PK_ReservationType] PRIMARY KEY ([ReservationType])
+CONSTRAINT [PK_ReservationType] PRIMARY KEY ([ReservationTypeID])
 )
 
 
@@ -70,20 +73,17 @@ create table [Reservation]
 [DateCreation] date,
 [CheckIn] date,
 [CheckOut] date,
-[Adults] nvarchar(50) NOT NULL,
-[Children] nvarchar(50) NOT NULL,
+[NumberOfAdults] nvarchar(50) NOT NULL,
+[NumberOfChildren] nvarchar(50) NOT NULL,
 [Meal] bit,
-[IdGuest] nvarchar(50),
-[LocationID] uniqueidentifier NOT NULL,
 [ReservationID] nvarchar(50),
-[ReservationType] nvarchar(50) NOT NULL,
+[ReservationTypeID] uniqueidentifier NOT NULL,
 [GuestID] uniqueidentifier NOT NULL,
-[RoomsID] nvarchar(50),
+[RoomID] uniqueidentifier NOT NULL,
 CONSTRAINT [PK_Reservation] PRIMARY KEY ([ReservationID]),
-CONSTRAINT [FK_Reservation_ReservationType] FOREIGN KEY ([ReservationType])
-     REFERENCES [ReservationType]([ReservationType]),
-CONSTRAINT [FK_Reservation_Room] FOREIGN KEY ([LocationID])
-     REFERENCES [Room]([LocationID]),
+CONSTRAINT [FK_Reservation_ReservationType] FOREIGN KEY ([ReservationTypeID])
+     REFERENCES [ReservationType]([ReservationTypeID]),
+CONSTRAINT [FK_Reservation_Room] FOREIGN KEY ([RoomID])
+     REFERENCES [Room]([RoomID]),
 CONSTRAINT [FK_Reservation_Guest] FOREIGN KEY ([GuestID])
      REFERENCES [Guest]([GuestID]));
-

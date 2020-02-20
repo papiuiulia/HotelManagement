@@ -2,16 +2,16 @@ select FirstName, LastName
 from Guest
 where FirstName = 'Ann'and LastName = 'Doe'
 
-SELECT r.LocationID,
+SELECT r.RoomID,
 	   g.LastName,
 	   g.GuestID
 FROM Reservation r
-	INNER JOIN Room ro ON r.LocationID = ro.LocationID
+	INNER JOIN Room ro ON r.RoomID = ro.RoomID
 	INNER JOIN Guest g ON g.GuestID = r.GuestID
 WHERE g.Country = 'France'
 
 
-SELECT TypeofRoom, Price
+SELECT Name, Price
 From RoomType
 ORDER BY Price asc
 
