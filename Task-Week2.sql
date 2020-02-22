@@ -1,7 +1,7 @@
 DROP FUNCTION IF EXISTS dbo.Guest_GetNoOfRoom
 
 -- create stored procedure
-DROP PROCEDURE IF EXISTs dbo.Guest_ReadById;
+DROP PROCEDURE IF EXISTS dbo.Guest_ReadById;
 GO
 
 CREATE PROCEDURE dbo.Guest_ReadById 
