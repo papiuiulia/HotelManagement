@@ -6,33 +6,33 @@ GO
 
 CREATE PROCEDURE  dbo.GuestType_ReadByID
 (
-   @GuestTypeID uniqueidentifier
+   @ID uniqueidentifier
 )
 AS
-SELECT * FROM GuestType WHERE GuestTypeID = @GuestTypeID
+SELECT * FROM GuestType WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.GuestType_Update
 (
-  @GuestTypeID uniqueidentifier,
-  @GuestType nvarchar(50)
+  @ID uniqueidentifier,
+  @Type nvarchar(50)
 )
 AS
-UPDATE dbo.GuestType SET GuestType = @GuestType WHERE GuestTypeID = @GuestTypeID
+UPDATE dbo.GuestType SET Type = @Type WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.GuestType_Delete
 (
-  @GuestTypeID uniqueidentifier
+  @ID uniqueidentifier
 )
 AS
-DELETE FROM GuestType WHERE GuestTypeID = @GuestTypeID
+DELETE FROM GuestType WHERE ID = @ID
 GO
 
-DECLARE @GuestTypeID uniqueidentifier = '00C7F69F-EAC4-3D0B-7F1E-3EA36EA2D0DE'
-EXECUTE [dbo].[GuestType_ReadById] @GuestTypeID
-EXECUTE [dbo].[GuestType_Update] @GuestTypeID, 'Agency'
-EXECUTE [dbo].[GuestType_Delete] @GuestTypeID
+DECLARE @ID uniqueidentifier = '00C7F69F-EAC4-3D0B-7F1E-3EA36EA2D0DE'
+EXECUTE [dbo].[GuestType_ReadById] @ID
+EXECUTE [dbo].[GuestType_Update] @ID, 'Agency'
+EXECUTE [dbo].[GuestType_Delete] @ID
 
 
 DROP PROCEDURE IF EXISTS dbo.Guest_ReadById
@@ -43,33 +43,33 @@ GO
 
 CREATE PROCEDURE  dbo.Guest_ReadByID
 (
-   @GuestID uniqueidentifier
+   @ID uniqueidentifier
 )
 AS
-SELECT * FROM Guest WHERE GuestID = @GuestID
+SELECT * FROM Guest WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.Guest_Update
 (
-  @GuestID uniqueidentifier,
+  @ID uniqueidentifier,
   @FirstName nvarchar(50)
 )
 AS
-UPDATE dbo.Guest SET FirstName = @FirstName WHERE GuestID = @GuestID
+UPDATE dbo.Guest SET FirstName = @FirstName WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.Guest_Delete
 (
-  @GuestID uniqueidentifier
+  @ID uniqueidentifier
 )
 AS
-DELETE FROM Guest WHERE GuestID = @GuestID
+DELETE FROM Guest WHERE ID = @ID
 GO
 
-DECLARE @GuestID uniqueidentifier = 'C75DDDE3-1E9B-59C7-320E-FBFB9B8CD56F'
-EXECUTE [dbo].[Guest_ReadById] @GuestID
-EXECUTE [dbo].[Guest_Update] @GuestID, 'Michael'
-EXECUTE [dbo].[Guest_Delete] @GuestID
+DECLARE @ID uniqueidentifier = 'C75DDDE3-1E9B-59C7-320E-FBFB9B8CD56F'
+EXECUTE [dbo].[Guest_ReadById] @ID
+EXECUTE [dbo].[Guest_Update] @ID, 'Michael'
+EXECUTE [dbo].[Guest_Delete] @ID
 
 
 DROP PROCEDURE IF EXISTS dbo.Reservation_ReadById
@@ -80,33 +80,33 @@ GO
 
 CREATE PROCEDURE  dbo.Reservation_ReadByID
 (
-   @ReservationID nvarchar(50)
+   @ID nvarchar(50)
 )
 AS
-SELECT * FROM Reservation WHERE ReservationID = @ReservationID
+SELECT * FROM Reservation WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.Reservation_Update
 (
-  @ReservationID nvarchar(50),
+  @ID nvarchar(50),
   @Meal nvarchar(50)
 )
 AS
-UPDATE dbo.Reservation SET Meal = @Meal WHERE ReservationID = @ReservationID
+UPDATE dbo.Reservation SET Meal = @Meal WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.Reservation_Delete
 (
-  @ReservationID nvarchar(50)
+  @ID nvarchar(50)
 )
 AS
-DELETE FROM Reservation WHERE ReservationID = @ReservationID
+DELETE FROM Reservation WHERE ID = @ID
 GO
 
-DECLARE @ReservationID nvarchar(50) = '0856B808-C2E4-B5F3-7AF6-035E096B238A'
-EXECUTE [dbo].[Reservation_ReadById] @ReservationID
-EXECUTE [dbo].[Reservation_Update] @ReservationID, 'False'
-EXECUTE [dbo].[Reservation_Delete] @ReservationID
+DECLARE @ID nvarchar(50) = '0856B808-C2E4-B5F3-7AF6-035E096B238A'
+EXECUTE [dbo].[Reservation_ReadById] @ID
+EXECUTE [dbo].[Reservation_Update] @ID, 'False'
+EXECUTE [dbo].[Reservation_Delete] @ID
 
 
 DELETE From Reservation;
@@ -123,33 +123,33 @@ GO
 
 CREATE PROCEDURE  dbo.RoomType_ReadByID
 (
-   @RoomTypeID uniqueidentifier
+   @ID uniqueidentifier
 )
 AS
-SELECT * FROM RoomType WHERE RoomTypeID = @RoomTypeID
+SELECT * FROM RoomType WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.RoomType_Update
 (
-  @RoomTypeID uniqueidentifier,
+  @ID uniqueidentifier,
   @Name nvarchar(50)
 )
 AS
-UPDATE dbo.RoomType SET Name = @Name WHERE RoomTypeID = @RoomTypeID
+UPDATE dbo.RoomType SET Name = @Name WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.RoomType_Delete
 (
-  @RoomTypeID uniqueidentifier
+  @ID uniqueidentifier
 )
 AS
-DELETE FROM RoomType WHERE RoomTypeID = @RoomTypeID
+DELETE FROM RoomType WHERE ID = @ID
 GO
 
-DECLARE @RoomTypeID uniqueidentifier = 'FB5297E5-C754-E8AD-2A61-B4FE918DB967'
-EXECUTE [dbo].[RoomType_ReadById] @RoomTypeID
-EXECUTE [dbo].[RoomType_Update] @RoomTypeID, 'Double'
-EXECUTE [dbo].[RoomType_Delete] @RoomTypeID
+DECLARE @ID uniqueidentifier = 'FB5297E5-C754-E8AD-2A61-B4FE918DB967'
+EXECUTE [dbo].[RoomType_ReadById] @ID
+EXECUTE [dbo].[RoomType_Update] @ID, 'Double'
+EXECUTE [dbo].[RoomType_Delete] @ID
 
 
 DROP PROCEDURE IF EXISTS dbo.Room_ReadById
@@ -160,33 +160,33 @@ GO
 
 CREATE PROCEDURE  dbo.Room_ReadByID
 (
-   @RoomID uniqueidentifier
+   @ID uniqueidentifier
 )
 AS
-SELECT * FROM Room WHERE RoomID = @RoomID
+SELECT * FROM Room WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.Room_Update
 (
-  @RoomID uniqueidentifier,
+  @ID uniqueidentifier,
   @RoomNr nvarchar(50)
 )
 AS
-UPDATE dbo.Room SET RoomNr = @RoomNr WHERE RoomID = @RoomID
+UPDATE dbo.Room SET RoomNr = @RoomNr WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.Room_Delete
 (
-  @RoomID uniqueidentifier
+  @ID uniqueidentifier
 )
 AS
-DELETE FROM Room WHERE RoomID = @RoomID
+DELETE FROM Room WHERE ID = @ID
 GO
 
-DECLARE @RoomID uniqueidentifier = '92253C67-3FE9-B5A3-1815-06370B145B62'
-EXECUTE [dbo].[Room_ReadById] @RoomID
-EXECUTE [dbo].[Room_Update] @RoomID, '24'
-EXECUTE [dbo].[Room_Delete] @RoomID
+DECLARE @ID uniqueidentifier = '92253C67-3FE9-B5A3-1815-06370B145B62'
+EXECUTE [dbo].[Room_ReadById] @ID
+EXECUTE [dbo].[Room_Update] @ID, '24'
+EXECUTE [dbo].[Room_Delete] @ID
 
 
 
@@ -198,33 +198,33 @@ GO
 
 CREATE PROCEDURE  dbo.AccommodationType_ReadByID
 (
-   @TypeofAccommodationID uniqueidentifier
+   @ID uniqueidentifier
 )
 AS
-SELECT * FROM AccommodationType WHERE TypeofAccommodationID = @TypeofAccommodationID
+SELECT * FROM AccommodationType WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.AccommodationType_Update
 (
-  @TypeofAccommodationID uniqueidentifier,
-  @TypeofAccommodation nvarchar(50)
+  @ID uniqueidentifier,
+  @Type nvarchar(50)
 )
 AS
-UPDATE dbo.AccommodationType SET TypeofAccommodation = @TypeofAccommodation WHERE TypeofAccommodationID = @TypeofAccommodationID
+UPDATE dbo.AccommodationType SET Type = @Type WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.AccommodationType_Delete
 (
-  @TypeofAccommodationID uniqueidentifier
+  @ID uniqueidentifier
 )
 AS
-DELETE FROM AccommodationType WHERE TypeofAccommodationID = @TypeofAccommodationID
+DELETE FROM AccommodationType WHERE ID = @ID
 GO
 
-DECLARE @TypeofAccommodationID uniqueidentifier = '62984B65-907F-BF97-9FB3-366FBACA30D9'
-EXECUTE [dbo].[AccommodationType_ReadById] @TypeofAccommodationID
-EXECUTE [dbo].[AccommodationType_Update] @TypeofAccommodationID, 'All inclusive'
-EXECUTE [dbo].[AccommodationType_Delete] @TypeofAccommodationID
+DECLARE @ID uniqueidentifier = '62984B65-907F-BF97-9FB3-366FBACA30D9'
+EXECUTE [dbo].[AccommodationType_ReadById] @ID
+EXECUTE [dbo].[AccommodationType_Update] @ID, 'All inclusive'
+EXECUTE [dbo].[AccommodationType_Delete] @ID
 
 
 
@@ -236,30 +236,30 @@ GO
 
 CREATE PROCEDURE  dbo.ReservationType_ReadByID
 (
-   @ReservationTypeID uniqueidentifier
+   @ID uniqueidentifier
 )
 AS
-SELECT * FROM ReservationType WHERE ReservationTypeID = @ReservationTypeID
+SELECT * FROM ReservationType WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.ReservationType_Update
 (
-  @ReservationTypeID uniqueidentifier,
-  @ReservationType nvarchar(50)
+  @ID uniqueidentifier,
+  @Type nvarchar(50)
 )
 AS
-UPDATE dbo.ReservationType SET ReservationType = @ReservationType WHERE ReservationTypeID = @ReservationTypeID
+UPDATE dbo.ReservationType SET Type = @Type WHERE ID = @ID
 GO
 
 CREATE PROCEDURE dbo.ReservationType_Delete
 (
-  @ReservationTypeID uniqueidentifier
+  @ID uniqueidentifier
 )
 AS
-DELETE FROM ReservationType WHERE ReservationTypeID = @ReservationTypeID
+DELETE FROM ReservationType WHERE ID = @ID
 GO
 
-DECLARE @ReservationTypeID uniqueidentifier = '1AB4F8C3-3F8D-2ABF-10E7-B24BE5F781AA'
-EXECUTE [dbo].[ReservationType_ReadById] @ReservationTypeID
-EXECUTE [dbo].[ReservationType_Update] @ReservationTypeID, 'Phone'
-EXECUTE [dbo].[ReservationType_Delete] @ReservationTypeID
+DECLARE @ID uniqueidentifier = '1AB4F8C3-3F8D-2ABF-10E7-B24BE5F781AA'
+EXECUTE [dbo].[ReservationType_ReadById] @ID
+EXECUTE [dbo].[ReservationType_Update] @ID, 'Phone'
+EXECUTE [dbo].[ReservationType_Delete] @ID

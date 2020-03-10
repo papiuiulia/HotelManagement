@@ -4,14 +4,15 @@ using System.Text;
 
 namespace HotelManagement.Models
 {
-    public class Room
-    {
+	public class Room
+	{
+		public Guid ID { get; set; }
+		public int RoomNr { get; set; }
+		public Guid RoomTypeID { get; set; }
+		public string AditionalInfo { get; set; }
+		public Guid TypeofAccommodationID { get; set; }
 		public Room()
-		{ 
-			public int RoomNr { get; set; }
-		    public int RoomTypeID { get; set; }
-		    public int RoomID { get; set; }
-		    public string AditionalInfo { get; set; }
-		    public int TypeofAccommodationID { get; set; }
+		{
+		}
 	}
 }

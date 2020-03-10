@@ -6,10 +6,12 @@ namespace HotelManagement.Models
 {
     public class AccommodationType
     {
+            public Guid ID { get; set; }
+            public string Type { get; set; }
+
         public AccommodationType()
         {
-            public int TypeofAccommodationID { get; set; }
-            public string TypeofAccommodation { get; set; }
+        }
 
     }
 }

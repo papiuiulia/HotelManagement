@@ -6,6 +6,7 @@ namespace HotelManagement.Models
 {
     public interface IReservationType
     {
-        IEnumerable<IReservationType> AllReservationTypes { get; }
+        Guid ID { get; set; }
+        string Type { get; set; }
     }
 }

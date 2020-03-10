@@ -6,9 +6,10 @@ namespace HotelManagement.Models
 {
     public class GuestType
     {
+        public Guid ID { get; set; }
+        public string Type { get; set; }
         public GuestType()
         {
-            public int GuestTypeID { get; set; }
-            public string GuestType { get; set; }
+        }
     }
 }

@@ -6,6 +6,8 @@ namespace HotelManagement.Models
 {
     public interface IRoomType
     {
-        IEnumerable<RoomType> AllRoomTypes { get; }
+        Guid ID { get; set; }
+        string Name { get; set; }
+        decimal Price { get; set; }
     }
 }

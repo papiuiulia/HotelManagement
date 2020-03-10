@@ -6,6 +6,7 @@ namespace HotelManagement.Models
 {
     public interface IGuestType
     {
-        IEnumerable<GuestType> AllGuestTypes { get; }
+        Guid ID { get; set; }
+        string Type { get; set; }
     }
 }

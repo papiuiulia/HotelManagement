@@ -4,19 +4,21 @@ using System.Text;
 
 namespace HotelManagement.Models
 {
-    public class Reservation
-    {
+	public class Reservation
+	{
+
+		public Guid ID { get; set; }
+		public DateTime DateCreation { get; set; }
+		public DateTime CheckIn { get; set; }
+		public DateTime CheckOut { get; set; }
+		public int NumberOfAdults { get; set; }
+		public int NumberOfChildren { get; set; }
+		public bool Meal { get; set; }
+		public Guid ReservationTypeID { get; set; }
+		public Guid GuestID { get; set; }
+		public Guid RoomID { get; set; }
 		public Reservation()
 		{
-			public DateTime DateCreation { get; set; }
-		    public DateTime CheckIn { get; set; }
-		    public DateTime CheckOut { get; set; }
-		    public int NumberOfAdults { get; set; }
-		    public int NumberOfChildren { get; set; }
-		    public bool Meal { get; set; }
-		    public int ReservationID { get; set; }
-		    public int ReservationTypeID { get; set; }
-		    public int GuestID { get; set; }
-		    public int RoomID { get; set; }
+		}
 	}
 }
