@@ -20,5 +20,9 @@ namespace HotelManagement.Models
 		public Reservation()
 		{
 		}
+		public Reservation(int numberOfAdults)
+		{
+			NumberOfChildren = numberOfAdults;
+		}
 	}
 }

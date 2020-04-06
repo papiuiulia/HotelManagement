@@ -20,6 +20,9 @@ namespace HotelManagement.Models
 		public Guest()
 		{
 		}
-		
+		public Guest(string firstName)
+		{
+			FirstName = firstName;
+		}
 	}
 }

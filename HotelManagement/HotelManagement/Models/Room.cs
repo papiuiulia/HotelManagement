@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HotelManagement.Models
+namespace Model
 {
-	public class Room
+	public class Room: User
 	{
 		public Guid ID { get; set; }
 		public int RoomNr { get; set; }
@@ -13,6 +13,10 @@ namespace HotelManagement.Models
 		public Guid TypeofAccommodationID { get; set; }
 		public Room()
 		{
+		}
+		public Room(int roomNr)
+		{
+			RoomNr = roomNr;
 		}
 	}
 }

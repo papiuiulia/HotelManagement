@@ -8,8 +8,12 @@ namespace HotelManagement.Models
     {
         public Guid ID { get; set; }
         public string Type { get; set; }
-        public GuestType()
-        {
-        }
-    }
+		public GuestType()
+		{
+		}
+		public GuestType(string type)
+		{
+			Type = type;
+		}
+	}
 }
