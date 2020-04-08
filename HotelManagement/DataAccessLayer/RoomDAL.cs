@@ -8,11 +8,11 @@ namespace DataAccessLayer
     public class RoomsDAL
     {
         private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
-        private const string ROOMS_READ_ALL = "dbo.Rooms_ReadAll";
-        private const string ROOMS_READ_BY_GUID = "dbo.Rooms_ReadByGUID";
-        private const string ROOMS_UPDATE = "dbo.Rooms_UpdateByID";
-        private const string ROOMS_INSERT = "dbo.Rooms_InsertByID";
-        private const string ROOMS_DELETE_BY_GUID = "dbo.Rooms_DeleteByID";
+        private const string ROOM_READ_ALL = "dbo.Rooms_ReadAll";
+        private const string ROOM_READ_BY_ID = "dbo.Rooms_ReadByGUID";
+        private const string ROOM_UPDATE = "dbo.Rooms_UpdateByID";
+        private const string ROOM_INSERT = "dbo.Rooms_InsertByID";
+        private const string ROOM_DELETE_BY_ID = "dbo.Rooms_DeleteByID";
 
         public List<Room> ReadAll()
         {
@@ -25,7 +25,7 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = ROOMS_READ_ALL;
+                    command.CommandText = ROOM_READ_ALL;
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         while (dataReader.Read())
@@ -40,7 +40,7 @@ namespace DataAccessLayer
             return rooms;
         }
 
-        public Room ReadByUid(Guid roomUid)
+        public Room ReadById(Guid roomId)
         {
             Room room = new Room();
 
@@ -51,8 +51,8 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = ROOMS_READ_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", roomUid));
+                    command.CommandText = ROOM_READ_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", roomId));
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         if (dataReader.Read())
@@ -66,7 +66,7 @@ namespace DataAccessLayer
             return room;
         }
 
-        public void UpdateById(RoomsDAL rooms)
+        public void UpdateById(Room room)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -76,18 +76,17 @@ namespace DataAccessLayer
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
                     command.CommandText = ROOMS_UPDATE_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", rooms.ID));
-                    command.Parameters.Add(new SqlParameter("@RoomNr", rooms.RoomNr));
-                    command.Parameters.Add(new SqlParameter("@RoomTypeID", rooms.RoomTypeID));
-                    command.Parameters.Add(new SqlParameter("@AditionalInfo", rooms.AditionalInfo));
-                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", rooms.TypeOfAccommodationID));
+                    command.Parameters.Add(new SqlParameter("@ID", room.ID));
+                    command.Parameters.Add(new SqlParameter("@RoomNr", room.RoomNr));
+                    command.Parameters.Add(new SqlParameter("@RoomTypeID", room.RoomTypeID));
+                    command.Parameters.Add(new SqlParameter("@AditionalInfo", room.AditionalInfo));
+                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", room.TypeOfAccommodationID));
                     command.ExecuteReader();
                 }
             }
         }
 
-
-        public void InsertById(Rooms rooms)
+        public void InsertById(Room room)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -97,18 +96,18 @@ namespace DataAccessLayer
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
                     command.CommandText = ROOMS_INSERT_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", rooms.ID));
-                    command.Parameters.Add(new SqlParameter("@RoomNr", rooms.RoomNr));
-                    command.Parameters.Add(new SqlParameter("@RoomTypeID", rooms.RoomTypeID));
-                    command.Parameters.Add(new SqlParameter("@AditionalInfo", rooms.AditionalInfo));
-                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", rooms.TypeOfAccommodationID));
+                    command.Parameters.Add(new SqlParameter("@ID", room.ID));
+                    command.Parameters.Add(new SqlParameter("@RoomNr", room.RoomNr));
+                    command.Parameters.Add(new SqlParameter("@RoomTypeID", room.RoomTypeID));
+                    command.Parameters.Add(new SqlParameter("@AditionalInfo", room.AditionalInfo));
+                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", room.TypeOfAccommodationID));
                     command.ExecuteReader();
                 }
 
             }
         }
 
-        public void DeleteByUid(Guid roomUid)
+        public void DeleteById(Guid roomId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -117,8 +116,8 @@ namespace DataAccessLayer
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.Add(new SqlParameter("@ID", roomUid));
-                    command.CommandText = ROOM_DELETE_BY_GUID;
+                    command.Parameters.Add(new SqlParameter("@ID", roomId));
+                    command.CommandText = ROOM_DELETE_BY_ID;
 
                     command.ExecuteNonQuery();
                 }

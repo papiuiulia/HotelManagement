@@ -5,14 +5,14 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-    public class ReservationsDAL
+    public class ReservationDAL
     {
         private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
-        private const string RESERVATIONS_READ_ALL = "dbo.Reservations_ReadAll";
-        private const string RESERVATIONS_READ_BY_GUID = "dbo.Reservations_ReadByGUID";
-        private const string RESERVATIONS_UPDATE = "dbo.Reservations_UpdateByID";
-        private const string RESERVATIONS_TYPE_INSERT = "dbo.Reservations_InsertByID";
-        private const string RESERVATIONS_DELETE_BY_GUID = "dbo.Reservations_DeleteByID";
+        private const string RESERVATION_READ_ALL = "dbo.Reservations_ReadAll";
+        private const string RESERVATION_READ_BY_ID = "dbo.Reservations_ReadByGUID";
+        private const string RESERVATION_UPDATE = "dbo.Reservations_UpdateByID";
+        private const string RESERVATION_TYPE_INSERT = "dbo.Reservations_InsertByID";
+        private const string RESERVATION_DELETE_BY_ID = "dbo.Reservations_DeleteByID";
 
         public List<Reservation> ReadAll()
         {
@@ -25,7 +25,7 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = RESERVATIONS_READ_ALL;
+                    command.CommandText = RESERVATION_READ_ALL;
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         while (dataReader.Read())
@@ -40,7 +40,7 @@ namespace DataAccessLayer
             return reservations;
         }
 
-        public Reservation ReadByUid(Guid reservationUid)
+        public Reservation ReadById(Guid reservationId)
         {
             Reservation reservation = new Reservation();
 
@@ -51,8 +51,8 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = RESERVATIONS_READ_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", reservationUid));
+                    command.CommandText = RESERVATION_READ_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservationId));
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         if (dataReader.Read())
@@ -66,7 +66,7 @@ namespace DataAccessLayer
             return reservation;
         }
 
-        public void UpdateById(Reservations reservations)
+        public void UpdateById(Reservation reservation)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -75,24 +75,23 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = RESERVATIONS_UPDATE_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", reservations.ID));
-                    command.Parameters.Add(new SqlParameter("@DateCreation", reservations.DateCreation));
-                    command.Parameters.Add(new SqlParameter("@CheckIn", reservations.CheckIn));
-                    command.Parameters.Add(new SqlParameter("@CheckOut", reservations.CheckOut));
-                    command.Parameters.Add(new SqlParameter("@NumberOfAdults", reservations.NumberOfAdults));
-                    command.Parameters.Add(new SqlParameter("@NumberOfChildren", reservations.NumberOfChildren));
-                    command.Parameters.Add(new SqlParameter("@Meal", reservations.Meal));
-                    command.Parameters.Add(new SqlParameter("@ReservationTypeID", reservations.ReservationTypeID));
-                    command.Parameters.Add(new SqlParameter("@GuestID", reservations.GuestID));
-                    command.Parameters.Add(new SqlParameter("@RoomID", reservations.RoomID));
+                    command.CommandText = RESERVATIONS_UPDATE_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservation.ID));
+                    command.Parameters.Add(new SqlParameter("@DateCreation", reservation.DateCreation));
+                    command.Parameters.Add(new SqlParameter("@CheckIn", reservation.CheckIn));
+                    command.Parameters.Add(new SqlParameter("@CheckOut", reservation.CheckOut));
+                    command.Parameters.Add(new SqlParameter("@NumberOfAdults", reservation.NumberOfAdults));
+                    command.Parameters.Add(new SqlParameter("@NumberOfChildren", reservation.NumberOfChildren));
+                    command.Parameters.Add(new SqlParameter("@Meal", reservation.Meal));
+                    command.Parameters.Add(new SqlParameter("@ReservationTypeID", reservation.ReservationTypeID));
+                    command.Parameters.Add(new SqlParameter("@GuestID", reservation.GuestID));
+                    command.Parameters.Add(new SqlParameter("@RoomID", reservation.RoomID));
                     command.ExecuteReader();
                 }
             }
         }
 
-
-        public void InsertById(Reservations reservations)
+        public void InsertById(Reservation reservation)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -101,25 +100,24 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = RESERVATIONS_INSERT_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", reservations.ID));
-                    command.Parameters.Add(new SqlParameter("@DateCreation", reservations.DateCreation));
-                    command.Parameters.Add(new SqlParameter("@CheckIn", reservations.CheckIn));
-                    command.Parameters.Add(new SqlParameter("@CheckOut", reservations.CheckOut));
-                    command.Parameters.Add(new SqlParameter("@NumberOfAdults", reservations.NumberOfAdults));
-                    command.Parameters.Add(new SqlParameter("@NumberOfChildren", reservations.NumberOfChildren));
-                    command.Parameters.Add(new SqlParameter("@Meal", reservations.Meal));
-                    command.Parameters.Add(new SqlParameter("@ReservationTypeID", reservations.ReservationTypeID));
-                    command.Parameters.Add(new SqlParameter("@GuestID", reservations.GuestID));
-                    command.Parameters.Add(new SqlParameter("@RoomID", reservations.RoomID));
+                    command.CommandText = RESERVATIONS_INSERT_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservation.ID));
+                    command.Parameters.Add(new SqlParameter("@DateCreation", reservation.DateCreation));
+                    command.Parameters.Add(new SqlParameter("@CheckIn", reservation.CheckIn));
+                    command.Parameters.Add(new SqlParameter("@CheckOut", reservation.CheckOut));
+                    command.Parameters.Add(new SqlParameter("@NumberOfAdults", reservation.NumberOfAdults));
+                    command.Parameters.Add(new SqlParameter("@NumberOfChildren", reservation.NumberOfChildren));
+                    command.Parameters.Add(new SqlParameter("@Meal", reservation.Meal));
+                    command.Parameters.Add(new SqlParameter("@ReservationTypeID", reservation.ReservationTypeID));
+                    command.Parameters.Add(new SqlParameter("@GuestID", reservation.GuestID));
+                    command.Parameters.Add(new SqlParameter("@RoomID", reservation.RoomID));
                     command.ExecuteReader();
                 }
 
             }
         }
 
-
-        public void DeleteByUid(Guid reservationUid)
+        public void DeleteById(Guid reservationId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -128,8 +126,8 @@ namespace DataAccessLayer
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.Add(new SqlParameter("@ID", reservationUid));
-                    command.CommandText = RESERVATIONS_DELETE_BY_GUID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservationId));
+                    command.CommandText = RESERVATION_DELETE_BY_ID;
 
                     command.ExecuteNonQuery();
                 }

@@ -5,18 +5,18 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-    public class GuestTypesDAL
+    public class ReservationTypeDAL
     {
         private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
-        private const string GUEST_TYPE_READ_ALL = "dbo.GuestType_ReadAll";
-        private const string GUEST_TYPE_READ_BY_GUID = "dbo.GuestType_ReadByGUID";
-        private const string GUEST_TYPE_UPDATE = "dbo.GuestType_UpdateByID";
-        private const string GUEST_TYPE_INSERT = "dbo.GuestType_InsertByID";
-        private const string GUEST_TYPE_DELETE_BY_GUID = "dbo.GuestType_DeleteByID";
+        private const string RESERVATION_TYPE_READ_ALL = "dbo.ReservationType_ReadAll";
+        private const string RESERVATION_TYPE_READ_BY_ID = "dbo.ReservationType_ReadByGUID";
+        private const string RESERVATION_TYPE_UPDATE = "dbo.ReservationType_UpdateByID";
+        private const string RESERVATION_TYPE_INSERT = "dbo.ReservationType_InsertByID";
+        private const string RESERVATION_TYPE_DELETE_BY_ID = "dbo.ReservationType_DeleteByID";
 
-        public List<GuestType> ReadAll()
+        public List<ReservationType> ReadAll()
         {
-            List<GuestType> guestTypes = new List<GuestType>();
+            List<ReservationType> reservationTypes = new List<ReservationType>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -25,24 +25,24 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = GUEST_TYPE_READ_ALL;
+                    command.CommandText = RESERVATION_TYPE_READ_ALL;
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         while (dataReader.Read())
                         {
-                            GuestType guestType = ConvertToModel(dataReader);
-                            guestType.Add(guesttype);
+                            ReservationType reservationType = ConvertToModel(dataReader);
+                            reservationTypes.Add(reservationType);
                         }
                     }
                 }
             }
 
-            return guestTypes;
+            return reservationTypes;
         }
 
-        public GuestType ReadByUid(Guid guestTypeUid)
+        public ReservationType ReadById(Guid reservationTypeId)
         {
-            GuestType guestType = new GuestType();
+            ReservationType reservationType = new ReservationType();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -51,22 +51,22 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = GUESTS_READ_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", guestTypeUid));
+                    command.CommandText = RESERVATION_TYPE_READ_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservationTypeId));
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         if (dataReader.Read())
                         {
-                            guestType = ConvertToModel(dataReader);
+                            reservationType = ConvertToModel(dataReader);
                         }
                     }
                 }
             }
 
-            return guestType;
+            return reservationType;
         }
 
-        public void UpdateById(GuestType guestType)
+        public void UpdateById(ReservationType reservationType)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -75,16 +75,16 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = GUEST_TYPE_UPDATE_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", guestType.ID));
-                    command.Parameters.Add(new SqlParameter("@Type", guestType.Type));
+                    command.CommandText = RESERVATION_TYPE_UPDATE_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservationType.ID));
+                    command.Parameters.Add(new SqlParameter("@Type", reservationType.Type));
                     command.ExecuteReader();
                 }
             }
         }
 
 
-        public void InsertById(GuestType guestType)
+        public void InsertById(ReservationType reservationType)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -93,9 +93,9 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = GUEST_TYPE_INSERT_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", guestType.ID));
-                    command.Parameters.Add(new SqlParameter("@Type", guestType.Type));
+                    command.CommandText = RESERVATION_TYPE_INSERT_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservationType.ID));
+                    command.Parameters.Add(new SqlParameter("@Type", reservationType.Type));
                     command.ExecuteReader();
                 }
 
@@ -103,7 +103,7 @@ namespace DataAccessLayer
         }
 
 
-        public void DeleteByUid(Guid guestTypeUid)
+        public void DeleteById(Guid reservationTypeId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -112,21 +112,21 @@ namespace DataAccessLayer
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.Add(new SqlParameter("@ID", guestTypeUid));
-                    command.CommandText = GUEST_TYPE_DELETE_BY_GUID;
+                    command.Parameters.Add(new SqlParameter("@ID", reservationTypeId));
+                    command.CommandText = RESERVATION_TYPE_DELETE_BY_ID;
 
                     command.ExecuteNonQuery();
                 }
             }
         }
 
-        private GuestType ConvertToModel(SqlDataReader dataReader)
+        private ReservationType ConvertToModel(SqlDataReader dataReader)
         {
-            GuestType guestType = new GuestType();
-            guestType.ID = dataReader.GetGuid(dataReader.GetOrdinal("ID"));
-            guestType.Type = dataReader.GetString(dataReader.GetOrdinal("Type"));
-
-            return guestType;
+            ReservationType reservationType = new ReservationType();
+            reservationType.ID = dataReader.GetGuid(dataReader.GetOrdinal("ID"));
+            reservationType.FirstName = dataReader.GetString(dataReader.GetOrdinal("Type"));
+            
+            return reservationType;
         }
     }
 }

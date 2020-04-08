@@ -9,10 +9,10 @@ namespace DataAccessLayer
     {
         private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
         private const string ACCOMMODATION_TYPE_READ_ALL = "dbo.AccommodationType_ReadAll";
-        private const string ACCOMMODATION_TYPE_READ_BY_GUID = "dbo.AccommodationType_ReadByGUID";
+        private const string ACCOMMODATION_TYPE_READ_BY_ID = "dbo.AccommodationType_ReadByGUID";
         private const string ACCOMMODATION_TYPE_UPDATE = "dbo.AccommodationType_UpdateByID";
         private const string ACCOMMODATION_TYPE_INSERT = "dbo.AccommodationType_InsertByID";
-        private const string ACCOMMODATION_TYPE_DELETE_BY_GUID = "dbo.AccommodationType_DeleteByID";
+        private const string ACCOMMODATION_TYPE_DELETE_BY_ID = "dbo.AccommodationType_DeleteByID";
 
         public List<AccomodationType> ReadAll()
         {
@@ -41,7 +41,7 @@ namespace DataAccessLayer
             return accomodationTypes;
         }
 
-        public AccomodationType ReadByUid(Guid accommodationTypeUid)
+        public AccomodationType ReadById(Guid accommodationTypeId)
         {
             AccommodationType accommodationType = new AccommodationType();
 
@@ -52,8 +52,8 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText =   ACCOMMODATION_TYPE_READ_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", accommodationTypeUid));
+                    command.CommandText =   ACCOMMODATION_TYPE_READ_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", accommodationTypeId));
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         if (dataReader.Read())
@@ -84,7 +84,6 @@ namespace DataAccessLayer
             }
         }
 
-
         public void InsertById(AccomodationType accommodationType)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
@@ -103,8 +102,7 @@ namespace DataAccessLayer
             }
         }
 
-
-        public void DeleteByUid(Guid accommodationTypeUid)
+        public void DeleteById(Guid accommodationTypeId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -113,8 +111,8 @@ namespace DataAccessLayer
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.Add(new SqlParameter("@ID", accommodationTypeUid));
-                    command.CommandText = ACCOMMODATION_TYPE_DELETE_BY_GUID;
+                    command.Parameters.Add(new SqlParameter("@ID", accommodationTypeId));
+                    command.CommandText = ACCOMMODATION_TYPE_DELETE_BY_ID;
 
                     command.ExecuteNonQuery();
                 }

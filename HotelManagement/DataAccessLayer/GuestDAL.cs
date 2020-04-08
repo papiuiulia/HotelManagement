@@ -8,11 +8,11 @@ namespace DataAccessLayer
     public class GuestsDAL
     {
         private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
-        private const string GUESTS_READ_ALL = "dbo.Guests_ReadAll";
-        private const string GUESTS_READ_BY_GUID = "dbo.Guests_ReadByGUID";
-        private const string GUESTS_UPDATE = "dbo.Guests_UpdateByID";
-        private const string GUESTS_TYPE_INSERT = "dbo.Guests_InsertByID";
-        private const string GUESTS_DELETE_BY_GUID = "dbo.Guests_DeleteByID";
+        private const string GUEST_READ_ALL = "dbo.Guests_ReadAll";
+        private const string GUEST_READ_BY_ID = "dbo.Guests_ReadByGUID";
+        private const string GUEST_UPDATE = "dbo.Guests_UpdateByID";
+        private const string GUEST_TYPE_INSERT = "dbo.Guests_InsertByID";
+        private const string GUEST_DELETE_BY_ID = "dbo.Guests_DeleteByID";
 
         public List<Guest> ReadAll()
         {
@@ -25,7 +25,7 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = GUESTS_READ_ALL;
+                    command.CommandText = GUEST_READ_ALL;
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         while (dataReader.Read())
@@ -40,7 +40,7 @@ namespace DataAccessLayer
             return guests;
         }
 
-        public Guest ReadByUid(Guid guestUid)
+        public Guest ReadById(Guid guestId)
         {
             Guest guest = new Guest();
 
@@ -51,8 +51,8 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = GUESTS_READ_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", guestUid));
+                    command.CommandText = GUEST_READ_BY_ID;
+                    command.Parameters.Add(new SqlParameter("@ID", guestId));
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
                         if (dataReader.Read())
@@ -66,7 +66,7 @@ namespace DataAccessLayer
             return guest;
         }
 
-        public void UpdateById(Guests guests)
+        public void UpdateById(Guest guest)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -76,23 +76,23 @@ namespace DataAccessLayer
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
                     command.CommandText = GUESTS_UPDATE_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", guests.ID));
-                    command.Parameters.Add(new SqlParameter("@FirstName", guests.FirstName));
-                    command.Parameters.Add(new SqlParameter("@LastName", guests.LastName));
-                    command.Parameters.Add(new SqlParameter("@Email", guests.Email));
-                    command.Parameters.Add(new SqlParameter("@Phone", guests.Phone));
-                    command.Parameters.Add(new SqlParameter("@Address", guests.Address));
-                    command.Parameters.Add(new SqlParameter("@City", guests.City));
-                    command.Parameters.Add(new SqlParameter("@Country", guests.Country));
-                    command.Parameters.Add(new SqlParameter("@GuestTypeID", guests.GuestTypeID));
-                    command.Parameters.Add(new SqlParameter("@AditionalInfo", guests.AditionalInfo));
+                    command.Parameters.Add(new SqlParameter("@ID", guest.ID));
+                    command.Parameters.Add(new SqlParameter("@FirstName", guest.FirstName));
+                    command.Parameters.Add(new SqlParameter("@LastName", guest.LastName));
+                    command.Parameters.Add(new SqlParameter("@Email", guest.Email));
+                    command.Parameters.Add(new SqlParameter("@Phone", guest.Phone));
+                    command.Parameters.Add(new SqlParameter("@Address", guest.Address));
+                    command.Parameters.Add(new SqlParameter("@City", guest.City));
+                    command.Parameters.Add(new SqlParameter("@Country", guest.Country));
+                    command.Parameters.Add(new SqlParameter("@GuestTypeID", guest.GuestTypeID));
+                    command.Parameters.Add(new SqlParameter("@AditionalInfo", guest.AditionalInfo));
                     command.ExecuteReader();
                 }
             }
         }
 
 
-        public void InsertById(Guests guests)
+        public void InsertById(Guest guest)
         {
             using (SqlConnnection connection = new SqlConnnection(_connectionString))
             {
@@ -102,23 +102,23 @@ namespace DataAccessLayer
                     command.Connection = connection;
                     command.CommandType = System.Data.ComandType.StoredProcedure;
                     command.CommandText = GUESTS_INSERT_BY_GUID;
-                    command.Parameters.Add(new SqlParameter("@ID", guests.ID));
-                    command.Parameters.Add(new SqlParameter("@FirstName", guests.FirstName));
-                    command.Parameters.Add(new SqlParameter("@LastName", guests.LastName));
-                    command.Parameters.Add(new SqlParameter("@Email", guests.Email));
-                    command.Parameters.Add(new SqlParameter("@Phone", guests.Phone));
-                    command.Parameters.Add(new SqlParameter("@Address", guests.Address));
-                    command.Parameters.Add(new SqlParameter("@City", guests.City));
-                    command.Parameters.Add(new SqlParameter("@Country", guests.Country));
-                    command.Parameters.Add(new SqlParameter("@GuestTypeID", guests.GuestTypeID));
-                    command.Parameters.Add(new SqlParameter("@AditionalInfo", guests.AditionalInfo));
+                    command.Parameters.Add(new SqlParameter("@ID", guest.ID));
+                    command.Parameters.Add(new SqlParameter("@FirstName", guest.FirstName));
+                    command.Parameters.Add(new SqlParameter("@LastName", guest.LastName));
+                    command.Parameters.Add(new SqlParameter("@Email", guest.Email));
+                    command.Parameters.Add(new SqlParameter("@Phone", guest.Phone));
+                    command.Parameters.Add(new SqlParameter("@Address", guest.Address));
+                    command.Parameters.Add(new SqlParameter("@City", guest.City));
+                    command.Parameters.Add(new SqlParameter("@Country", guest.Country));
+                    command.Parameters.Add(new SqlParameter("@GuestTypeID", guest.GuestTypeID));
+                    command.Parameters.Add(new SqlParameter("@AditionalInfo", guest.AditionalInfo));
                     command.ExecuteReader();
                 }
 
             }
         }
 
-        public void DeleteByUid(Guid guestUid)
+        public void DeleteById(Guid guestId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -127,8 +127,8 @@ namespace DataAccessLayer
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.Add(new SqlParameter("@ID", guestUid));
-                    command.CommandText = GUESTS_DELETE_BY_GUID;
+                    command.Parameters.Add(new SqlParameter("@ID", guestId));
+                    command.CommandText = GUEST_DELETE_BY_ID;
                     command.ExecuteNonQuery();
                 }
             }

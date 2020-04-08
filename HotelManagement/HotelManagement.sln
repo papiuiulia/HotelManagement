@@ -7,6 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelManagement", "HotelMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{2A0F49E1-2153-4101-A955-EC6AAB223BF0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLayer", "BusinessLayer", "{75AC74E3-6B79-4482-9906-3ADBF3B1F763}"
+	ProjectSection(SolutionItems) = preProject
+		AccommodationTypeBL.cs = AccommodationTypeBL.cs
+		BLContext.cs = BLContext.cs
+		GuestBL.cs = GuestBL.cs
+		GuestTypeBL.cs = GuestTypeBL.cs
+		ReservationBL.cs = ReservationBL.cs
+		ReservationTypeBL.cs = ReservationTypeBL.cs
+		RoomBL.cs = RoomBL.cs
+		RoomTypeBL.cs = RoomTypeBL.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{BF8074EF-7519-490E-8D47-FC444D52A4CD}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyInfo.cs = AssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +41,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BF8074EF-7519-490E-8D47-FC444D52A4CD} = {75AC74E3-6B79-4482-9906-3ADBF3B1F763}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A45F95C-1EAE-4D6C-AAA0-E7EE7D903A3C}
