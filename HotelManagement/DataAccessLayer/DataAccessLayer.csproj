@@ -43,13 +43,13 @@
   <ItemGroup>
     <Compile Include="AccommodationTypeDAL.cs" />
     <Compile Include="GuestDAL.cs" />
-    <Compile Include="GuestTypesDAL.cs" />
+    <Compile Include="GuestTypeDAL.cs" />
     <Compile Include="IDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReservationsDAL.cs" />
-    <Compile Include="ReservationTypesDAL.cs" />
-    <Compile Include="RoomsDAL.cs" />
-    <Compile Include="RoomTypesDAL.cs" />
+    <Compile Include="ReservationDAL.cs" />
+    <Compile Include="ReservationTypeDAL.cs" />
+    <Compile Include="RoomDAL.cs" />
+    <Compile Include="RoomTypeDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HotelManagement\HotelManagement.csproj">

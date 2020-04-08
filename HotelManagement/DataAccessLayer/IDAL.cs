@@ -8,7 +8,7 @@ namespace DataAccessLayer
 {
     public interface IDAL
     {
-        void DeleteByUid(Guid id);
+        void DeleteById(Guid id);
 
     }
 }

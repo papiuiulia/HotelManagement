@@ -32,7 +32,7 @@ namespace DataAccessLayer
                         {
                             AccomodationType accommodationType = new AccommodationType();
                             accommodationType = ConvertToModel(dataReader);
-                            accommodationType.Add(accommodationType);
+                            accommodationTypes.Add(accommodationType);
                         }
                     }
                 }
