@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HotelManagement.Models;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -7,12 +8,17 @@ namespace DataAccessLayer
 {
     public class ReservationDAL
     {
-        private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
+        private string _connectionString;
         private const string RESERVATION_READ_ALL = "dbo.Reservations_ReadAll";
         private const string RESERVATION_READ_BY_ID = "dbo.Reservations_ReadByGUID";
         private const string RESERVATION_UPDATE = "dbo.Reservations_UpdateByID";
         private const string RESERVATION_TYPE_INSERT = "dbo.Reservations_InsertByID";
         private const string RESERVATION_DELETE_BY_ID = "dbo.Reservations_DeleteByID";
+
+        public ReservationDAL(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public List<Reservation> ReadAll()
         {
@@ -68,14 +74,14 @@ namespace DataAccessLayer
 
         public void UpdateById(Reservation reservation)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = RESERVATIONS_UPDATE_BY_ID;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "RESERVATIONS_UPDATE_BY_ID";
                     command.Parameters.Add(new SqlParameter("@ID", reservation.ID));
                     command.Parameters.Add(new SqlParameter("@DateCreation", reservation.DateCreation));
                     command.Parameters.Add(new SqlParameter("@CheckIn", reservation.CheckIn));
@@ -93,14 +99,14 @@ namespace DataAccessLayer
 
         public void InsertById(Reservation reservation)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = RESERVATIONS_INSERT_BY_ID;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "RESERVATIONS_INSERT_BY_ID";
                     command.Parameters.Add(new SqlParameter("@ID", reservation.ID));
                     command.Parameters.Add(new SqlParameter("@DateCreation", reservation.DateCreation));
                     command.Parameters.Add(new SqlParameter("@CheckIn", reservation.CheckIn));
@@ -138,15 +144,15 @@ namespace DataAccessLayer
         {
             Reservation reservation = new Reservation();
             reservation.ID = dataReader.GetGuid(dataReader.GetOrdinal("ID"));
-            reservation.DateCreation = dataReader.GetString(dataReader.GetOrdinal("DateCreation"));
-            reservation.CheckIn = dataReader.GetString(dataReader.GetOrdinal("CheckIn"));
-            reservation.CheckOut = dataReader.GetString(dataReader.GetOrdinal("CheckOut"));
-            reservation.NumberOfAdults = dataReader.GetString(dataReader.GetOrdinal("NumberOfAdults"));
-            reservation.NumberOfChildren = dataReader.GetString(dataReader.GetOrdinal("NumberOfChildren"));
-            reservation.Meal = dataReader.GetString(dataReader.GetOrdinal("Meal"));
-            reservation.ReservationTypeID = dataReader.GetString(dataReader.GetOrdinal("ReservationTypeID"));
-            reservation.GuestID = dataReader.GetString(dataReader.GetOrdinal("GuestID"));
-            reservation.RoomID = dataReader.GetString(dataReader.GetOrdinal("RoomID"));
+            reservation.DateCreation = dataReader.GetDateTime(dataReader.GetOrdinal("DateCreation"));
+            reservation.CheckIn = dataReader.GetDateTime(dataReader.GetOrdinal("CheckIn"));
+            reservation.CheckOut = dataReader.GetDateTime(dataReader.GetOrdinal("CheckOut"));
+            reservation.NumberOfAdults = dataReader.GetInt32(dataReader.GetOrdinal("NumberOfAdults"));
+            reservation.NumberOfChildren = dataReader.GetInt32(dataReader.GetOrdinal("NumberOfChildren"));
+            reservation.Meal = dataReader.GetBoolean(dataReader.GetOrdinal("Meal"));
+            reservation.ReservationTypeID = dataReader.GetGuid(dataReader.GetOrdinal("ReservationTypeID"));
+            reservation.GuestID = dataReader.GetGuid(dataReader.GetOrdinal("GuestID"));
+            reservation.RoomID = dataReader.GetGuid(dataReader.GetOrdinal("RoomID"));
 
             return reservation;
         }

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataAccessLayer</RootNamespace>
     <AssemblyName>DataAccessLayer</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +34,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.1\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccommodationTypeDAL.cs" />
+    <Compile Include="DALContext.cs" />
     <Compile Include="GuestDAL.cs" />
     <Compile Include="GuestTypeDAL.cs" />
     <Compile Include="IDAL.cs" />
@@ -52,9 +57,12 @@
     <Compile Include="RoomTypeDAL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HotelManagement\HotelManagement.csproj">
-      <Project>{baa5060f-5320-4d95-8d31-36bc3cc80554}</Project>
-      <Name>HotelManagement</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{21c180ac-fbc6-4dea-9ca1-96a5a46659ea}</Project>
+      <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

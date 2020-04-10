@@ -5,14 +5,19 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-    public class RoomsDAL
+    public class RoomDAL
     {
-        private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
+        private string _connectionString;
         private const string ROOM_READ_ALL = "dbo.Rooms_ReadAll";
         private const string ROOM_READ_BY_ID = "dbo.Rooms_ReadByGUID";
         private const string ROOM_UPDATE = "dbo.Rooms_UpdateByID";
         private const string ROOM_INSERT = "dbo.Rooms_InsertByID";
         private const string ROOM_DELETE_BY_ID = "dbo.Rooms_DeleteByID";
+
+        public RoomDAL(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public List<Room> ReadAll()
         {
@@ -68,19 +73,19 @@ namespace DataAccessLayer
 
         public void UpdateById(Room room)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = ROOMS_UPDATE_BY_GUID;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "ROOMS_UPDATE_BY_GUID";
                     command.Parameters.Add(new SqlParameter("@ID", room.ID));
                     command.Parameters.Add(new SqlParameter("@RoomNr", room.RoomNr));
                     command.Parameters.Add(new SqlParameter("@RoomTypeID", room.RoomTypeID));
                     command.Parameters.Add(new SqlParameter("@AditionalInfo", room.AditionalInfo));
-                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", room.TypeOfAccommodationID));
+                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", room.TypeofAccommodationID));
                     command.ExecuteReader();
                 }
             }
@@ -88,19 +93,19 @@ namespace DataAccessLayer
 
         public void InsertById(Room room)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = ROOMS_INSERT_BY_GUID;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "ROOMS_INSERT_BY_GUID";
                     command.Parameters.Add(new SqlParameter("@ID", room.ID));
                     command.Parameters.Add(new SqlParameter("@RoomNr", room.RoomNr));
                     command.Parameters.Add(new SqlParameter("@RoomTypeID", room.RoomTypeID));
                     command.Parameters.Add(new SqlParameter("@AditionalInfo", room.AditionalInfo));
-                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", room.TypeOfAccommodationID));
+                    command.Parameters.Add(new SqlParameter("@TypeOfAccommodation", room.TypeofAccommodationID));
                     command.ExecuteReader();
                 }
 
@@ -128,10 +133,10 @@ namespace DataAccessLayer
         {
             Room room = new Room();
             room.ID = dataReader.GetGuid(dataReader.GetOrdinal("ID"));
-            room.RoomNr = dataReader.GetString(dataReader.GetOrdinal("RoomNr"));
-            room.RoomTypeID = dataReader.GetString(dataReader.GetOrdinal("RoomTypeID"));
+            room.RoomNr = dataReader.GetInt32(dataReader.GetOrdinal("RoomNr"));
+            room.RoomTypeID = dataReader.GetGuid(dataReader.GetOrdinal("RoomTypeID"));
             room.AditionalInfo = dataReader.GetString(dataReader.GetOrdinal("AditionalInfo"));
-            room.TypeOfAccommodationID = dataReader.GetString(dataReader.GetOrdinal("TypeofAccommodationID"));
+            room.TypeofAccommodationID = dataReader.GetGuid(dataReader.GetOrdinal("TypeofAccommodationID"));
 
             return room;
         }

@@ -1,18 +1,25 @@
-﻿using Model;
+﻿using HotelManagement.Models;
+using Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
     public class GuestTypeDAL
     {
-        private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
+        private string _connectionString;
         private const string GUEST_TYPE_READ_ALL = "dbo.GuestType_ReadAll";
         private const string GUEST_TYPE_READ_BY_ID = "dbo.GuestType_ReadByGUID";
         private const string GUEST_TYPE_UPDATE = "dbo.GuestType_UpdateByID";
         private const string GUEST_TYPE_INSERT = "dbo.GuestType_InsertByID";
         private const string GUEST_TYPE_DELETE_BY_ID = "dbo.GuestType_DeleteByID";
+
+        public GuestTypeDAL(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public List<GuestType> ReadAll()
         {
@@ -51,7 +58,7 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = GUESTS_READ_BY_ID;
+                    command.CommandText = "GUESTS_READ_BY_ID";
                     command.Parameters.Add(new SqlParameter("@ID", guestTypeId));
                     using (SqlDataReader dataReader = command.ExecuteReader())
                     {
@@ -68,14 +75,14 @@ namespace DataAccessLayer
 
         public void UpdateById(GuestType guestType)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = GUEST_TYPE_UPDATE_BY_ID;
+                    command.CommandType =CommandType.StoredProcedure;
+                    command.CommandText = "GUEST_TYPE_UPDATE_BY_ID";
                     command.Parameters.Add(new SqlParameter("@ID", guestType.ID));
                     command.Parameters.Add(new SqlParameter("@Type", guestType.Type));
                     command.ExecuteReader();
@@ -86,14 +93,14 @@ namespace DataAccessLayer
 
         public void InsertById(GuestType guestType)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = GUEST_TYPE_INSERT_BY_ID;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "GUEST_TYPE_INSERT_BY_ID";
                     command.Parameters.Add(new SqlParameter("@ID", guestType.ID));
                     command.Parameters.Add(new SqlParameter("@Type", guestType.Type));
                     command.ExecuteReader();

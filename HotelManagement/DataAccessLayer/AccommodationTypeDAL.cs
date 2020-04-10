@@ -1,22 +1,28 @@
-﻿using Model;
+﻿using HotelManagement.Models;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-    public class AccomodationTypeDAL
+    public class AccommodationTypeDAL
     {
-        private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
+        private string _connectionString;
         private const string ACCOMMODATION_TYPE_READ_ALL = "dbo.AccommodationType_ReadAll";
         private const string ACCOMMODATION_TYPE_READ_BY_ID = "dbo.AccommodationType_ReadByGUID";
         private const string ACCOMMODATION_TYPE_UPDATE = "dbo.AccommodationType_UpdateByID";
         private const string ACCOMMODATION_TYPE_INSERT = "dbo.AccommodationType_InsertByID";
         private const string ACCOMMODATION_TYPE_DELETE_BY_ID = "dbo.AccommodationType_DeleteByID";
 
-        public List<AccomodationType> ReadAll()
+        public AccommodationTypeDAL(string connectionString)
         {
-            List<AccomodationType> accomodationTypes = new List<AccomodationType>();
+            _connectionString = connectionString;
+        }
+
+        public List<AccommodationType> ReadAll()
+        {
+            List<AccommodationType> accomodationTypes = new List<AccommodationType>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -30,9 +36,9 @@ namespace DataAccessLayer
                     {
                         while (dataReader.Read())
                         {
-                            AccomodationType accommodationType = new AccommodationType();
+                            AccommodationType accommodationType = new AccommodationType();
                             accommodationType = ConvertToModel(dataReader);
-                            accommodationTypes.Add(accommodationType);
+                            accomodationTypes.Add(accommodationType);
                         }
                     }
                 }
@@ -41,7 +47,7 @@ namespace DataAccessLayer
             return accomodationTypes;
         }
 
-        public AccomodationType ReadById(Guid accommodationTypeId)
+        public AccommodationType ReadById(Guid accommodationTypeId)
         {
             AccommodationType accommodationType = new AccommodationType();
 
@@ -69,14 +75,14 @@ namespace DataAccessLayer
 
         public void UpdateById(AccommodationType accommodationType)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = ACCOMMODATION_TYPE_UPDATE_BY_GUID;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "ACCOMMODATION_TYPE_UPDATE_BY_GUID";
                     command.Parameters.Add(new SqlParameter("@ID", accommodationType.ID));
                     command.Parameters.Add(new SqlParameter("@Type", accommodationType.Type));
                     command.ExecuteReader();
@@ -84,16 +90,16 @@ namespace DataAccessLayer
             }
         }
 
-        public void InsertById(AccomodationType accommodationType)
+        public void InsertById(AccommodationType accommodationType)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = ACCOMMODATION_TYPE_INSERT_BY_GUID;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "ACCOMMODATION_TYPE_INSERT_BY_GUID";
                     command.Parameters.Add(new SqlParameter("@ID", accommodationType.ID));
                     command.Parameters.Add(new SqlParameter("@Type", accommodationType.Type));
                     command.ExecuteReader();
@@ -119,7 +125,7 @@ namespace DataAccessLayer
             }
         }
 
-        private AccomodationType ConvertToModel(SqlDataReader dataReader)
+        private AccommodationType ConvertToModel(SqlDataReader dataReader)
         {
             AccommodationType accommodationType = new AccommodationType();
             accommodationType.ID = dataReader.GetGuid(dataReader.GetOrdinal("ID"));

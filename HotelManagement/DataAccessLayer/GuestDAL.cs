@@ -1,18 +1,25 @@
-﻿using Model;
+﻿using HotelManagement.Models;
+using Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-    public class GuestsDAL
+    public class GuestDAL
     {
-        private const string _connectionString = "Server=IULIA-NOTEBOOK\\MSSQLSERVER2017;Database=master;Trusted_Connection=True;";
+        private string _connectionString;
         private const string GUEST_READ_ALL = "dbo.Guests_ReadAll";
         private const string GUEST_READ_BY_ID = "dbo.Guests_ReadByGUID";
         private const string GUEST_UPDATE = "dbo.Guests_UpdateByID";
         private const string GUEST_TYPE_INSERT = "dbo.Guests_InsertByID";
         private const string GUEST_DELETE_BY_ID = "dbo.Guests_DeleteByID";
+
+        public GuestDAL(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public List<Guest> ReadAll()
         {
@@ -68,14 +75,14 @@ namespace DataAccessLayer
 
         public void UpdateById(Guest guest)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = GUESTS_UPDATE_BY_GUID;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "GUESTS_UPDATE_BY_GUID";
                     command.Parameters.Add(new SqlParameter("@ID", guest.ID));
                     command.Parameters.Add(new SqlParameter("@FirstName", guest.FirstName));
                     command.Parameters.Add(new SqlParameter("@LastName", guest.LastName));
@@ -94,14 +101,14 @@ namespace DataAccessLayer
 
         public void InsertById(Guest guest)
         {
-            using (SqlConnnection connection = new SqlConnnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = System.Data.ComandType.StoredProcedure;
-                    command.CommandText = GUESTS_INSERT_BY_GUID;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "GUESTS_INSERT_BY_GUID";
                     command.Parameters.Add(new SqlParameter("@ID", guest.ID));
                     command.Parameters.Add(new SqlParameter("@FirstName", guest.FirstName));
                     command.Parameters.Add(new SqlParameter("@LastName", guest.LastName));
@@ -145,8 +152,8 @@ namespace DataAccessLayer
             guest.Address = dataReader.GetString(dataReader.GetOrdinal("Address"));
             guest.City = dataReader.GetString(dataReader.GetOrdinal("City"));
             guest.Country = dataReader.GetString(dataReader.GetOrdinal("Country"));
-            guest.GuestTypeID = dataReader.GetString(dataReader.GetOrdinal("GuestTypeID"));
-            guest.AditionalInfo = dataReader.GetDateTime(dataReader.GetOrdinal("AditionalInfo"));
+            guest.GuestTypeID = new Guid(dataReader.GetString(dataReader.GetOrdinal("GuestTypeID")));
+            guest.AditionalInfo = dataReader.GetDateTime(dataReader.GetOrdinal("AditionalInfo")).ToString();
             return guest;
         }
     }
