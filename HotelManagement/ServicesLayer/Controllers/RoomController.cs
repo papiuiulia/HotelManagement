@@ -8,13 +8,9 @@ namespace ServicesLayer.Controllers
 {
     public class RoomController : ApiController
     {
-        private BLContext _blContext;
+        private BLContext _blContext = new BLContext();
 
-        public RoomController(BLContext blContext)
-        {
-            _blContext = blContext;
-        }
-
+        [HttpGet]
         public List<Room> GetAll()
         {
             return _blContext.RoomBL.ReadAll();
