@@ -10,12 +10,21 @@ namespace ServicesLayer.Controllers
     {
         private BLContext _blContext = new BLContext();
 
+        [Route("api/room")]
         [HttpGet]
         public List<Room> GetAll()
         {
             return _blContext.RoomBL.ReadAll();
         }
 
+        [Route("api/room/all-available")]
+        [HttpGet]
+        public List<Room> GetAllAvailable()
+        {
+            return _blContext.RoomBL.GetAllAvailable();
+        }
+
+        [Route("api/room/{id}")]
         [HttpGet]
         public Room ReadById(Guid id)
         {

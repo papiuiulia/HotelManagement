@@ -28,7 +28,7 @@ create table [RoomType]
 (
 [ID] uniqueidentifier NOT NULL,
 [Name] nvarchar(50) NOT NULL,
-[Price] nvarchar(50) NOT NULL,
+[Price] decimal NOT NULL,
 CONSTRAINT [PK_RoomType] PRIMARY KEY ([ID]));
 
 
@@ -44,9 +44,9 @@ CONSTRAINT [PK_AccommodationType] PRIMARY KEY ([ID])
 
 create table [Room] 
 (
-[ID] uniqueidentifier NOT NULL,
 [RoomNr] nvarchar(50) NOT NULL,
 [RoomTypeID] uniqueidentifier NOT NULL,
+[ID] uniqueidentifier NOT NULL,
 [AditionalInfo] nvarchar(50) NOT NULL,
 [TypeofAccommodationID] uniqueidentifier NOT NULL,
 CONSTRAINT [PK_Room] PRIMARY KEY ([ID]),
@@ -70,13 +70,13 @@ CONSTRAINT [PK_ReservationType] PRIMARY KEY ([ID])
 
 create table [Reservation] 
 (
-[ID] nvarchar(50),
 [DateCreation] date,
 [CheckIn] date,
 [CheckOut] date,
 [NumberOfAdults] nvarchar(50) NOT NULL,
 [NumberOfChildren] nvarchar(50) NOT NULL,
 [Meal] bit,
+[ID] nvarchar(50),
 [ReservationTypeID] uniqueidentifier NOT NULL,
 [GuestID] uniqueidentifier NOT NULL,
 [RoomID] uniqueidentifier NOT NULL,

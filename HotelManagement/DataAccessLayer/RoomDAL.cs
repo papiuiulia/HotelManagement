@@ -8,15 +8,41 @@ namespace DataAccessLayer
     public class RoomDAL
     {
         private string _connectionString;
-        private const string ROOM_READ_ALL = "dbo.Rooms_ReadAll";
-        private const string ROOM_READ_BY_ID = "dbo.Rooms_ReadByGUID";
-        private const string ROOM_UPDATE = "dbo.Rooms_UpdateByID";
-        private const string ROOM_INSERT = "dbo.Rooms_InsertByID";
-        private const string ROOM_DELETE_BY_ID = "dbo.Rooms_DeleteByID";
+        private const string ROOM_GET_ALL_AVAILABLE = "dbo.Room_GetAllAvailable";
+        private const string ROOM_READ_ALL = "dbo.Room_ReadAll";
+        private const string ROOM_READ_BY_ID = "dbo.Room_ReadByGUID";
+        private const string ROOM_UPDATE = "dbo.Room_UpdateByID";
+        private const string ROOM_INSERT = "dbo.Room_InsertByID";
+        private const string ROOM_DELETE_BY_ID = "dbo.Room_DeleteByID";
 
         public RoomDAL(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public List<Room> GetAllAvailable()
+        {
+            List<Room> rooms = new List<Room>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = ROOM_GET_ALL_AVAILABLE;
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            Room room = ConvertToModel(dataReader);
+                            rooms.Add(room);
+                        }
+                    }
+                }
+            }
+            return rooms;
         }
 
         public List<Room> ReadAll()
@@ -133,7 +159,7 @@ namespace DataAccessLayer
         {
             Room room = new Room();
             room.ID = dataReader.GetGuid(dataReader.GetOrdinal("ID"));
-            room.RoomNr = dataReader.GetInt32(dataReader.GetOrdinal("RoomNr"));
+            room.RoomNr = dataReader.GetOrdinal("RoomNr");
             room.RoomTypeID = dataReader.GetGuid(dataReader.GetOrdinal("RoomTypeID"));
             room.AditionalInfo = dataReader.GetString(dataReader.GetOrdinal("AditionalInfo"));
             room.TypeofAccommodationID = dataReader.GetGuid(dataReader.GetOrdinal("TypeofAccommodationID"));

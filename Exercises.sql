@@ -4,10 +4,10 @@ where FirstName = 'Ann'and LastName = 'Doe'
 
 SELECT r.RoomID,
 	   g.LastName,
-	   g.ID
+	   g.GuestID
 FROM Reservation r
-	INNER JOIN Room ro ON r.RoomID = ro.ID
-	INNER JOIN Guest g ON g.ID = r.GuestID
+	INNER JOIN Room ro ON r.RoomID = ro.RoomID
+	INNER JOIN Guest g ON g.GuestID = r.GuestID
 WHERE g.Country = 'France'
 
 

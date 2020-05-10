@@ -19,6 +19,11 @@ namespace ServicesLayer
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "Room All Available",
+                routeTemplate: "api/room/all-available"
+            );
         }
     }
 }

@@ -11,13 +11,9 @@ namespace ServicesLayer.Controllers
 {
     public class RoomTypeController : ApiController
     {
-        private BLContext _blContext;
+        private BLContext _blContext = new BLContext();
 
-        public RoomTypeController(BLContext blContext)
-        {
-            _blContext = blContext;
-        }
-
+        [HttpGet]
         public List<RoomType> GetAll()
         {
             return _blContext.RoomTypeBL.ReadAll();

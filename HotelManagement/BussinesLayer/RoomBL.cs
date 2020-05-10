@@ -24,6 +24,11 @@ namespace BussinesLayer
             return _roomDAL.ReadAll();
         }
 
+        public List<Room> GetAllAvailable()
+        {
+            return _roomDAL.GetAllAvailable();
+        }
+
         public void DeleteById(Guid id) 
         {
             _roomDAL.DeleteById(id);

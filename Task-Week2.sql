@@ -6,25 +6,25 @@ GO
 
 CREATE PROCEDURE dbo.Guest_ReadById 
 (
-	@ID uniqueidentifier
+	@GuestID uniqueidentifier
 )
 AS
 BEGIN
 	SELECT  g.FirstName,
 			g.LastName,
 		   --(ro.RoomNr)
-			COUNT(ro.ID) as NoOfRoom
+			COUNT(ro.RoomID) as NoOfRoom
 	FROM Guest g
-		INNER JOIN Reservation r ON r.GuestID = g.ID
-		INNER JOIN Room ro ON ro.ID = r.RoomID
-	GROUP BY g.ID, g.LastName, g.FirstName
-	HAVING g.ID = @ID
+		INNER JOIN Reservation r ON r.GuestID = g.GuestID
+		INNER JOIN Room ro ON ro.RoomID = r.RoomID
+	GROUP BY g.GuestID, g.LastName, g.FirstName
+	HAVING g.GuestID = @GuestID
 	END
 GO
 
 --declarations
-DECLARE @ID uniqueidentifier = 'F22F1530-A563-30E9-F475-32E75369D4A0'
-EXECUTE dbo.[Guest_ReadById] @ID
+DECLARE @GuestID uniqueidentifier = 'F22F1530-A563-30E9-F475-32E75369D4A0'
+EXECUTE dbo.[Guest_ReadById] @GuestID
 
 
 --function
@@ -33,18 +33,18 @@ GO
 
 CREATE FUNCTION [dbo].[Guest_GetNoOfRoom]
 (
-	@ID uniqueidentifier
+	@GuestID uniqueidentifier
 )
 RETURNS int
 AS
 BEGIN
 	DECLARE @result int
 
-	SELECT @result = COUNT(ro.ID)
+	SELECT @result = COUNT(ro.RoomID)
 	FROM Guest g
-		INNER JOIN Reservation r ON r.GuestID = g.ID
-		INNER JOIN Room ro ON ro.ID = r.RoomID
-	WHERE g.ID = @ID
+		INNER JOIN Reservation r ON r.GuestID = g.GuestID
+		INNER JOIN Room ro ON ro.RoomID = r.RoomID
+	WHERE g.GuestID = @GuestID
 	RETURN @result
 END
 GO
@@ -56,25 +56,23 @@ GO
 --call function from within SP
 CREATE PROCEDURE [dbo].[Guest_ReadById_With_Procedure] 
 (
-	@ID uniqueidentifier
+	@GuestID uniqueidentifier
 )
 AS
 BEGIN
-	SELECT g.ID,
+	SELECT g.GuestID,
 			g.LastName,
-			dbo.Guest_GetNoOfRoom(ID) as NoOfRoom
+			dbo.Guest_GetNoOfRoom(GuestID) as NoOfRoom
 	FROM Guest g
-	WHERE g.ID = @ID
+	WHERE g.GuestID = @GuestID
 END
 GO
 
 
 -- table valued function
-DROP FUNCTION IF EXISTS [dbo].[Guest_GetRoomforGuest]
-
 CREATE FUNCTION [dbo].[Guest_GetRoomforGuest]
 (
-    @ID uniqueidentifier
+    @GuestID uniqueidentifier
 )
 RETURNS TABLE
 AS
@@ -84,10 +82,10 @@ RETURN
 	  g.[LastName],
 	  ro.[RoomNr]
 	  FROM Guest g 
-	  INNER JOIN Reservation r ON r.GuestID = g.ID
-	  INNER JOIN Room ro ON ro.ID = r.RoomID
+	  INNER JOIN Reservation r ON r.GuestID = g.GuestID
+	  INNER JOIN Room ro ON ro.RoomID = r.RoomID
     WHERE
-        g.ID = @ID
+        g.GuestID = @GuestID
 GO
 
 select * from dbo.Guest_GetRoomforGuest('F22F1530-A563-30E9-F475-32E75369D4A0')
@@ -98,13 +96,13 @@ DROP VIEW if EXISTS [dbo].[GuestAndRoom]
 
 CREATE VIEW [dbo].[GuestAndRoom]
 AS
-SELECT g.ID,
+SELECT g.GuestID,
 		g.LastName,
-		COUNT(r.ID) as NoOfRoom
+		COUNT(r.RoomID) as NoOfRoom
 FROM Guest g
-	LEFT JOIN Reservation r ON r.GuestID = g.ID
-	LEFT JOIN Room ro ON ro.ID = r.RoomID
-GROUP BY g.ID, g.LastName
+	LEFT JOIN Reservation r ON r.GuestID = g.GuestID
+	LEFT JOIN Room ro ON ro.RoomID = r.RoomID
+GROUP BY g.GuestID, g.LastName
 GO
 
 SELECT * from [dbo].[GuestAndRoom]

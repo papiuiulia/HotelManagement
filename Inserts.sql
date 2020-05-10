@@ -29,11 +29,13 @@ insert into [AccommodationType] ([ID], [Type]) values ('F7D82AFA-4507-3DA2-72A6-
 insert into [AccommodationType] ([ID], [Type]) values ('62984B65-907F-BF97-9FB3-366FBACA30D9', 'Bed and Breakfast');
 
 insert into [RoomType]
-(ID, Name, Price) values ('FB5297E5-C754-E8AD-2A61-B4FE918DB967', 'Single', '150$');
+(ID, Name, Price) values ('FB5297E5-C754-E8AD-2A61-B4FE918DB967', 'Single', 150);
 insert into [RoomType]
-(ID, Name, Price) values ('E77A8D29-CBEF-0FD9-6797-780923DB84F9','Double', '250$');
+(ID, Name, Price) values ('E77A8D29-CBEF-0FD9-6797-780923DB84F9','Double', 250);
 insert into [RoomType]
-(ID, Name, Price) values ('03D89659-0BF0-CA7C-174E-C899F4D0987C','Single', '180$');
+(ID, Name, Price) values ('03D89659-0BF0-CA7C-174E-C899F4D0987C','Family', 180);
+insert into [RoomType]
+(ID, Name, Price) values ('B3975393-568E-49A3-ABC1-66B841ED3E0A','Presidential', 300);
 
 insert into [Room]
 (RoomNr, RoomTypeID, ID, AditionalInfo, TypeofAccommodationID) values ('23', 'E77A8D29-CBEF-0FD9-6797-780923DB84F9', '92253C67-3FE9-B5A3-1815-06370B145B62', 'No info', '3457D994-9ACF-6907-EB01-95C9DB8A1661');
@@ -41,6 +43,8 @@ insert into [Room]
 (RoomNr, RoomTypeID, ID, AditionalInfo, TypeofAccommodationID) values ('17', '03D89659-0BF0-CA7C-174E-C899F4D0987C', '9A0DBEAA-4AF4-F792-A393-561C13AA57C6', 'No info', 'F7D82AFA-4507-3DA2-72A6-B7FB4D59119F');
 insert into [Room]
 (RoomNr, RoomTypeID, ID, AditionalInfo, TypeofAccommodationID) values ('10', 'FB5297E5-C754-E8AD-2A61-B4FE918DB967', '9E5060AB-E64C-4E3A-DC3F-5C5B627FB6C2', 'Pet friendly', '62984B65-907F-BF97-9FB3-366FBACA30D9');
+insert into [Room]
+(RoomNr, RoomTypeID, ID, AditionalInfo, TypeofAccommodationID) values ('2', 'FB5297E5-C754-E8AD-2A61-B4FE918DB967', '86E5FF43-2D28-41F4-A7E5-B42CEE567FA7', 'Pet friendly', '62984B65-907F-BF97-9FB3-366FBACA30D9');
 
 insert into [ReservationType] ([ID], [Type]) values ('1AB4F8C3-3F8D-2ABF-10E7-B24BE5F781AA', 'Booking');
 insert into [ReservationType] ([ID], [Type]) values ('7B611782-B94A-181B-C8A8-03810636217B', 'Agency');
