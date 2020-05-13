@@ -8,13 +8,9 @@ namespace ServicesLayer.Controllers
 {
     public class ReservationController : ApiController
     {
-        private BLContext _blContext;
+        private BLContext _blContext = new BLContext();
 
-        public ReservationController(BLContext blContext)
-        {
-            _blContext = blContext;
-        }
-
+        [HttpGet]
         public List<Reservation> GetAll()
         {
             return _blContext.ReservationBL.ReadAll();
@@ -32,7 +28,8 @@ namespace ServicesLayer.Controllers
             _blContext.ReservationBL.DeleteById(id);
         }
 
-        public void Insert(Reservation reservation)
+        [HttpPost]
+        public void Insert([FromBody] Reservation reservation)
         {
             _blContext.ReservationBL.Insert(reservation);
         }

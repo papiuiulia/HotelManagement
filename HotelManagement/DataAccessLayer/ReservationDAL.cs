@@ -1,5 +1,4 @@
 ﻿using HotelManagement.Models;
-using Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,7 +11,7 @@ namespace DataAccessLayer
         private const string RESERVATION_READ_ALL = "dbo.Reservations_ReadAll";
         private const string RESERVATION_READ_BY_ID = "dbo.Reservations_ReadByGUID";
         private const string RESERVATION_UPDATE = "dbo.Reservations_UpdateByID";
-        private const string RESERVATION_TYPE_INSERT = "dbo.Reservations_InsertByID";
+        private const string RESERVATION_TYPE_INSERT = "dbo.Reservation_Insert";
         private const string RESERVATION_DELETE_BY_ID = "dbo.Reservations_DeleteByID";
 
         public ReservationDAL(string connectionString)
@@ -106,7 +105,7 @@ namespace DataAccessLayer
                 {
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "RESERVATIONS_INSERT_BY_ID";
+                    command.CommandText = RESERVATION_TYPE_INSERT;
                     command.Parameters.Add(new SqlParameter("@ID", reservation.ID));
                     command.Parameters.Add(new SqlParameter("@DateCreation", reservation.DateCreation));
                     command.Parameters.Add(new SqlParameter("@CheckIn", reservation.CheckIn));

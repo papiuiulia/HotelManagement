@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using DataAccessLayer;
 using HotelManagement.Models;
-using Model;
 
 namespace BussinesLayer
 {

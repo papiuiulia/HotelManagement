@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ServicesLayer
 {
@@ -24,6 +22,9 @@ namespace ServicesLayer
                 name: "Room All Available",
                 routeTemplate: "api/room/all-available"
             );
+
+            EnableCorsAttribute corsAttr = new EnableCorsAttribute("http://localhost:3000", "*", "*");
+            config.EnableCors(corsAttr);
         }
     }
 }

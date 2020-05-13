@@ -2,3 +2,9 @@ C:\Users\Iulia\source\repos\SQL-HotelManagement\HotelManagement\Model\bin\Debug\
 C:\Users\Iulia\source\repos\SQL-HotelManagement\HotelManagement\Model\bin\Debug\Model.pdb
 C:\Users\Iulia\source\repos\SQL-HotelManagement\HotelManagement\Model\obj\Debug\Model.dll
 C:\Users\Iulia\source\repos\SQL-HotelManagement\HotelManagement\Model\obj\Debug\Model.pdb
+C:\Projects\HotelManagement\HotelManagement\Model\bin\Debug\Model.dll
+C:\Projects\HotelManagement\HotelManagement\Model\bin\Debug\Model.pdb
+C:\Projects\HotelManagement\HotelManagement\Model\obj\Debug\Model.csprojAssemblyReference.cache
+C:\Projects\HotelManagement\HotelManagement\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+C:\Projects\HotelManagement\HotelManagement\Model\obj\Debug\Model.dll
+C:\Projects\HotelManagement\HotelManagement\Model\obj\Debug\Model.pdb

@@ -3,7 +3,6 @@ DROP PROCEDURE IF EXISTS dbo.GuestType_Delete;
 DROP PROCEDURE IF EXISTS dbo.GuestType_Update;
 GO
 
-
 CREATE PROCEDURE  dbo.GuestType_ReadByID
 (
    @GuestTypeID uniqueidentifier
@@ -75,8 +74,8 @@ EXECUTE [dbo].[Guest_Delete] @GuestID
 DROP PROCEDURE IF EXISTS dbo.Reservation_ReadById
 DROP PROCEDURE IF EXISTS dbo.Reservation_Delete;
 DROP PROCEDURE IF EXISTS dbo.Reservation_Update;
+DROP PROCEDURE IF EXISTS dbo.Reservation_Insert;
 GO
-
 
 CREATE PROCEDURE  dbo.Reservation_ReadByID
 (
@@ -101,6 +100,24 @@ CREATE PROCEDURE dbo.Reservation_Delete
 )
 AS
 DELETE FROM Reservation WHERE ID = @ReservationID
+GO
+
+CREATE PROCEDURE dbo.Reservation_Insert
+(
+	@ID uniqueidentifier,
+	@DateCreation date,
+	@CheckIn date,
+	@CheckOut date,
+	@NumberOfAdults nvarchar(50),
+	@NumberOfChildren nvarchar(50),
+	@Meal bit,
+	@ReservationTypeID uniqueidentifier,
+	@GuestID uniqueidentifier,
+	@RoomID uniqueidentifier
+)
+AS
+INSERT INTO Reservation(ID, DateCreation, CheckIn, CheckOut, NumberOfAdults, NumberOfChildren, Meal, ReservationTypeID, GuestID, RoomID)
+VALUES(@ID, @DateCreation, @CheckIn, @CheckOut, @NumberOfAdults, @NumberOfChildren, @Meal, @ReservationTypeID, @GuestID, @RoomID)
 GO
 
 DECLARE @ReservationID nvarchar(50) = '0856B808-C2E4-B5F3-7AF6-035E096B238A'
